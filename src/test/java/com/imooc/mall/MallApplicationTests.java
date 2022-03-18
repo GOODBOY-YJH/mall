@@ -24,4 +24,9 @@ public class MallApplicationTests {
         System.out.println(category);
     }
 
+    @Test
+    public void queryByIdTest() {
+        Category category = categoryMapper.queryById(100002);
+        System.out.println(category);
+    }
 }
