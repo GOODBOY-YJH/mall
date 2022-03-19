@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class UserForm {
+public class UserRegisterForm {
 
     // @NotEmpty 用于集合
     // @NotBlank  用于String判断空格

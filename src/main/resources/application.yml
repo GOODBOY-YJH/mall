@@ -12,6 +12,11 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mappers/*.xml
 
+
 #logging:
 #  path: /com/imooc/
 #  level: debug
+server:
+  servlet:
+    session:
+      timeout: 1200

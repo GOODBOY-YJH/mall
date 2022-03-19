@@ -1,8 +1,11 @@
 package com.imooc.mall.service.impl;
 
+import com.imooc.mall.enums.ResponseEnum;
 import com.imooc.mall.enums.RoleEnums;
 import com.imooc.mall.pojo.User;
 import com.imooc.mall.service.IUserService;
+import com.imooc.mall.vo.ResponseVo;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringRunner.class)
 @Transactional
 public class UserServiceImplTest {
+
+    private static final String USERNAME = "lisi";
+    private static final String PASSWORD = "123456";
+
+
 
     @Autowired
     private IUserService userService;
@@ -27,4 +35,11 @@ public class UserServiceImplTest {
         user.setRole(RoleEnums.CUSTOMER.getCode());
         userService.register(user);
     }
+    @Test
+    public void login() {
+        register();
+        ResponseVo<User> responseVo = userService.login(USERNAME, PASSWORD);
+        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
+    }
+
 }
