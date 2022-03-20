@@ -2,9 +2,13 @@ package com.imooc.mall.exception;
 
 import com.imooc.mall.enums.ResponseEnum;
 import com.imooc.mall.vo.ResponseVo;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Objects;
 
 import static com.imooc.mall.enums.ResponseEnum.ERROR;
 
@@ -23,12 +27,12 @@ public class RuntimeExceptionHander {
     public  ResponseVo userLoginHandle(){
         return ResponseVo.error(ResponseEnum.NEED_LOGIN);
     }
-    // @ExceptionHandler(IllegalArgumentException.class)
-    // @ResponseBody
-    // public  ResponseVo notValidException(IllegalArgumentException e){
-    //     BindingResult bindingResult = e.get();
-    //     return ResponseVo.error(ResponseEnum.PARAM_ERROR,
-    //             Objects.requireNonNull(bindingResult.getFieldError()).getField() + " "
-    //                     + bindingResult.getFieldError().getDefaultMessage());
-    // }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public  ResponseVo notValidException(MethodArgumentNotValidException e){
+        BindingResult bindingResult = e.getBindingResult();
+        return ResponseVo.error(ResponseEnum.PARAM_ERROR,
+                Objects.requireNonNull(bindingResult.getFieldError()).getField() + " "
+                        + bindingResult.getFieldError().getDefaultMessage());
+    }
 }
