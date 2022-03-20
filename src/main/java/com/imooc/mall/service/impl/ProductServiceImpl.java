@@ -6,6 +6,7 @@ import com.imooc.mall.dao.ProductMapper;
 import com.imooc.mall.pojo.Product;
 import com.imooc.mall.service.ICategoryService;
 import com.imooc.mall.service.IProductService;
+import com.imooc.mall.vo.ProductDetailVo;
 import com.imooc.mall.vo.ProductVo;
 import com.imooc.mall.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.imooc.mall.enums.ProductStatusEnum.DELETE;
+import static com.imooc.mall.enums.ProductStatusEnum.OFF_SALE;
+import static com.imooc.mall.enums.ResponseEnum.PRODUCT_OFF_SALE_OR_DELETE;
 
 @Service
 @Slf4j
@@ -46,5 +51,19 @@ public class ProductServiceImpl implements IProductService {
         PageInfo pageInfo = new PageInfo(productList);
         pageInfo.setList(productVoList);
         return ResponseVo.success(pageInfo);
+    }
+
+    @Override
+    public ResponseVo<ProductDetailVo> detail(Integer productId) {
+        Product product = productMapper.selectByPrimaryKey(productId);
+        if (product.getStatus().equals(OFF_SALE.getCode())
+                || product.getStatus().equals(DELETE.getCode())){
+            return ResponseVo.error(PRODUCT_OFF_SALE_OR_DELETE);
+        }
+        ProductDetailVo productDetailVo = new ProductDetailVo();
+        BeanUtils.copyProperties(product, productDetailVo);
+        // 敏感数据处理
+        productDetailVo.setStock(product.getStock() > 100 ? 100 : product.getStock());
+        return ResponseVo.success(productDetailVo);
     }
 }
