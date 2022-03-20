@@ -24,6 +24,8 @@ public class UserLoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("进入测试");
+        log.info("prehandle");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(CURRENT_USER);
         if(user == null){

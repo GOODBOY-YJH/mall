@@ -23,5 +23,12 @@ public class RuntimeExceptionHander {
     public  ResponseVo userLoginHandle(){
         return ResponseVo.error(ResponseEnum.NEED_LOGIN);
     }
-
+    // @ExceptionHandler(IllegalArgumentException.class)
+    // @ResponseBody
+    // public  ResponseVo notValidException(IllegalArgumentException e){
+    //     BindingResult bindingResult = e.get();
+    //     return ResponseVo.error(ResponseEnum.PARAM_ERROR,
+    //             Objects.requireNonNull(bindingResult.getFieldError()).getField() + " "
+    //                     + bindingResult.getFieldError().getDefaultMessage());
+    // }
 }
