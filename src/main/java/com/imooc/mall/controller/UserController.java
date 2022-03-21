@@ -53,8 +53,6 @@ public class UserController {
         return ResponseVo.success(user);
     }
 
-    //TODO 判断登陆状态 拦截器
-
     /**
      * {@link TomcatServletWebServerFactory}getSessionTimeoutInMinutes
      * @param session

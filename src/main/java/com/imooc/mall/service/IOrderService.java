@@ -10,5 +10,5 @@ public interface IOrderService {
     ResponseVo<PageInfo> list(Integer uid, Integer pageNum, Integer pageSize);
     ResponseVo<OrderVo> detail(Integer uid, Long orderNo);
     ResponseVo<OrderVo> cancel(Integer uid, Long orderNo);
-    // ResponseVo<OrderVo> pain(Integer uid, Long orderNo);
+    void paid(Long orderNo);
 }
