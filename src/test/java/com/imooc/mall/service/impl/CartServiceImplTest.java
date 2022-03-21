@@ -9,19 +9,16 @@ import com.imooc.mall.service.ICartService;
 import com.imooc.mall.vo.CartVo;
 import com.imooc.mall.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Transactional
+// @Transactional
 @Slf4j
 public class CartServiceImplTest {
 
@@ -30,7 +27,7 @@ public class CartServiceImplTest {
     // @Autowired
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    @Before
+    @Test
     public void add() {
         CartAddForm cartAddForm = new CartAddForm();
         cartAddForm.setProductId(27);
@@ -40,6 +37,7 @@ public class CartServiceImplTest {
         log.info("add={}", gson.toJson(responseVo));
         Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
     }
+
 
     @Test
     public void list() {
@@ -59,7 +57,7 @@ public class CartServiceImplTest {
         Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
     }
 
-    @After
+    @Test
     public void delete() {
         ResponseVo<CartVo> responseVo = cartService.delete(1, 27);
         log.info("delete={}", gson.toJson(responseVo));
